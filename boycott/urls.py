@@ -23,6 +23,7 @@ from django.contrib import admin
 from django.urls import path,re_path
 from boycott import views
 app_name='boycott'
+######
 urlpatterns = [
     path(r'index/', views.index,name='index'),  #第一啊个参数还不能写 index.html
     path(r'login/', views.login,name='login'),
