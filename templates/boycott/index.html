@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>机器列表</title>
+{#    <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>#}
+    <script type="text/javascript" src="../../static/main.js"></script>
+</head>
+<body>
+    <div>
+        <form action="{% url 'boycott:index' %}" method="post">
+            {% csrf_token %}
+            <label for="hostname">主机名</label><input type="text" id="hostname" name="hostname" placeholder="请输入主机名">
+            <label for="m_ip">IP地址</label><input type="text" id="m_ip" name="m_ip" placeholder="请输入IP地址">
+            <select name="usergroup" id="usergroup">
+                {% for item in group %}
+                    <option value={{ item.id }}>{{ item.GroupName }}</option>
+                {% endfor %}
+            </select>
+            <input type="submit" value="提交">
+        </form>
+    </div>
+    <div class="machine_list">
+        <table border="1">
+            <tr>
+                <td>主机名</td>
+                <td>IP</td>
+                <td>用户组</td>
+                <td>删除</td>
+            </tr>
+            {% for item in data %}
+                <tr>
+                    <td>{{ item.hostname }}</td>
+                    <td>{{ item.ip }}</td>
+                    <td>{{ item.user_group.GroupName }}</td>
+                    <td><input type="button" onclick=loadXMLDoc(this) value="删除" id="del_id_{{ item.id }}" class="btn_class"></td>
+                {% comment %}
+                    两点不是很明白，点击按钮的时候，是否会给服务器发数据？
+                {% endcomment %}
+                </tr>
+            {% endfor %}
+        </table>
+
+    </div>
+</body>
+</html>
